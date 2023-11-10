@@ -9,13 +9,13 @@ JAZZMIN_SETTINGS = {
     "site_brand": "BetoGame",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "/img/icono.png",
+    "site_logo": "/img/logo.png",
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
 
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": None,
+    "site_icon": "/img/icono.ico",
 
     # Welcome text on the login screen
     "welcome_sign": "Bienvenido a BetoGame",
@@ -83,10 +83,11 @@ JAZZMIN_SETTINGS = {
     # Custom links to append to app groups, keyed on app name
     # "custom_links": {
     #     "Inventario": [{
-    #         "name": "Inventario", 
-    #         "url": "make_messages", 
+    #         "name": "TestModel", 
+    #         # "model": ["TestModel"],
+    #         # "url": "make_messages", 
     #         "icon": "fa-solid fa-warehouse",
-    #         "permissions": ["books.view_book"]
+    #         # "permissions": ["books.view_book"]
     #     }]
     # },
 
@@ -96,6 +97,14 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        "Inventario.Producto": "fas fa-hamburger",
+        "Inventario.Entrada": "fas fa-truck-loading",
+        "Inventario.HistoricoPrecios": "fas fa-dollar-sign",
+        "Local.Cliente": "far fa-user-circle",
+        "Local.Compra": "fas fa-shopping-cart",
+        "Local.Juego": "fab fa-playstation",
+        "Local.Consola": "fas fa-gamepad",
+        "Local.Sesion": "fas fa-stopwatch",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -147,7 +156,7 @@ DEFAULT_UI_TWEAKS = {
     # brand/logo background colour
     "brand_colour": False,
     # Link colour
-    "accent": "accent-info",
+    "accent": "accent-dark",
     # topmenu colour
     "navbar": "navbar-black navbar-dark",
     # topmenu border
