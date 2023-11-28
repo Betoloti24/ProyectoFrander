@@ -39,6 +39,6 @@ Sistema de recomendaciones de productos de ropa, implementando un modelo de IA b
     py manege.py runserver
 ```
 
-
+Luego de que ejecutemos el servidor, vamos a la ruta de 127.0.0.1:8000/admin para acceder al modulo de administracion de datos 
 
 
