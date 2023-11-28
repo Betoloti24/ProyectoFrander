@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
     # Mis Aplicaciones
     'Tienda',
 ]
@@ -134,3 +135,39 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 JAZZMIN_SETTINGS = JAZZMIN_SETTINGS
 JAZZMIN_UI_TWEAKS = DEFAULT_UI_TWEAKS
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+#     'DEFAULT_RENDERER_CLASSES': [
+#         'rest_framework.renderers.JSONRenderer',
+#         'rest_framework.renderers.BrowsableAPIRenderer',
+#     ],
+# }
+
+# SWAGGER_SETTINGS = {
+#     'USE_SESSION_AUTH': False,
+#     'JSON_EDITOR': True,
+#     'SECURITY_DEFINITIONS': {
+#         'basic': {
+#             'type': 'basic',
+#         },
+#     },
+#     'APP_NAME': 'Hyper',
+#     'api_version': '1.0',
+#     'info': {
+#         'title': 'API Tienda de Ropa',
+#         'description': 'Esta API le permitira a los clientes de la tienda de ropa Hyper S.A. realizar compras de manera online, ademas de incluir algunas cualidades que integran un modelo de IA basado en Logica Difusa para recomendacion de prendas de ropa.',
+#         'contact': {
+#             'name': 'Frander',
+#             'email': 'tu-email@dominio.com',
+#         },
+#         'license': {
+#             'name': 'Licencia',
+#             'url': 'https://opensource.org/licenses/MIT',
+#         },
+#     },
+# }
+

@@ -25,8 +25,8 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 @admin.register(Ropa)
 class RopaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'precio_venta', 'genero', 'tipo')
-    list_filter = ('genero','tipo')
+    list_display = ('id', 'nombre', 'precio_venta', 'genero')
+    list_filter = ('genero',)
     search_fields = ('nombre',)
 
 @admin.register(Factura)
