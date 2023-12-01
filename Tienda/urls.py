@@ -5,5 +5,6 @@ from Tienda.controllers import UsuarioController
 urlpatterns = [
     path('usuarios/', UsuarioController.usuario_list),
     path('usuarios/<int:pk>/', UsuarioController.usuario_detail),
-    path('usuarios/correo/', UsuarioController.usuario_detail_correo),
+    path('usuarios/inicio_sesion/', UsuarioController.inicio_sesion),
+    path('usuarios/cambiar_clave/', UsuarioController.cambio_clave),
 ]
