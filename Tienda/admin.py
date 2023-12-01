@@ -4,8 +4,8 @@ from .models import Ubicacion, Categoria, Usuario, Ropa, Factura, Carrito
 # Creamos los registros de las tablas en el administrador por el patron de decorador
 @admin.register(Ubicacion)
 class UbicacionAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'tipo', 'id_padre')
-    list_filter = ('tipo', 'id_padre')
+    list_display = ('id', 'nombre', 'tipo', 'id_padre') # visualizar los campos en la vista del modelo en admin
+    list_filter = ('tipo', 'id_padre') # filtrar por los campos en la vista del modelo en admin
     search_fields = ('nombre', )
 
 @admin.register(Categoria)
@@ -40,3 +40,4 @@ class CarritoAdmin(admin.ModelAdmin):
     list_display = ('id_usuario', 'id_ropa', 'cantidad', 'id_factura')
     list_filter = ('id_usuario', 'id_ropa')
     search_fields = ('id_usuario', 'id_ropa')
+    readonly_fields = ('id_factura', )

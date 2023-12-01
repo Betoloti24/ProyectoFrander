@@ -28,15 +28,15 @@ Sistema de recomendaciones de productos de ropa, implementando un modelo de IA b
 ```
 4. Ejecuta las migraciones del proyecto.
 ```
-    py manege.py migrate
+    py manage.py migrate
 ```
 5. Crear un superusuario para administrar el sistema. Colocas el nombre de usuario y contraseña que mas te convenga.
 ```
-    py manege.py createsuperuser
+    py manage.py createsuperuser
 ```
 6. Ejecuta el servidor del proyecto
 ```
-    py manege.py runserver
+    py manage.py runserver
 ```
 
 Luego de que ejecutemos el servidor, vamos a la ruta de 127.0.0.1:8000/admin para acceder al modulo de administracion de datos 

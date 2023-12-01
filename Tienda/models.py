@@ -58,13 +58,14 @@ class Usuario(models.Model):
     correo = models.EmailField(max_length=30)
     id_pais = models.ForeignKey('Ubicacion', on_delete=models.SET_NULL, null=True, blank=True)
     preferencias = models.ManyToManyField('Categoria')
+    clave_acceso = models.CharField(max_length=30)
 
     class Meta:
         verbose_name = 'Usuario'
         verbose_name_plural = 'Usuarios'
 
     def __str__(self):
-        return f'{self.nombre} {self.apellido} ({self.username})'
+        return f'{self.nombre} {self.apellido}'
 
 """
     Modelo de Ropa
