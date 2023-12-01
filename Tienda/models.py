@@ -74,7 +74,7 @@ class Usuario(models.Model):
     * precio_venta: numerico(9,2)
     * marca: cadena(20)
     * genero: cadena(10) (Check) 
-    * tipo: cadena(20) (Check)
+    * imagen: imagen()
 """
 class Ropa(models.Model):
     id = models.BigAutoField(primary_key=True)
