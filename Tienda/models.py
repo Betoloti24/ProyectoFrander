@@ -1,4 +1,5 @@
 from django.db import models
+import os 
 
 # Create your models here.
 """
@@ -74,7 +75,7 @@ class Usuario(models.Model):
     * precio_venta: numerico(9,2)
     * marca: cadena(20)
     * genero: cadena(10) (Check) 
-    * tipo: cadena(20) (Check)
+    * imagen: imagen()
 """
 class Ropa(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -87,6 +88,13 @@ class Ropa(models.Model):
     class Meta:
         verbose_name = 'Ropa'
         verbose_name_plural = 'Ropas'
+
+    def delete(self, *args, **kwargs):
+        # Eliminar la imagen del producto del sistema de archivos
+        if self.imagen:
+            if os.path.isfile(self.imagen.path):
+                os.remove(self.imagen.path)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.nombre

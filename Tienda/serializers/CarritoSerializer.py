@@ -4,4 +4,4 @@ from Tienda.models import Carrito
 class CarritoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carrito
-        fields = ['cantidad', 'id_usuario', 'id_ropa', 'id_factura']
+        fields = ['cantidad', 'id_usuario', 'id_ropa']
