@@ -9,5 +9,7 @@ urlpatterns = [
     path('usuarios/cambiar_clave/', UsuarioController.cambio_clave),
     path('ropas/', RopaController.ropa_list),
     path('ropas/<int:pk>/', RopaController.ropa_detail),
-    path('carrito/', CarritoController.agregar_al_carrito),
+    path('carritos/', CarritoController.agregar_al_carrito),
+    path('carritos/<int:id_usuario>/<int:id_ropa>', CarritoController.eliminar_del_carrito),
+    path('carritos/<int:id_usuario>', CarritoController.detalle_carrito),
 ]

@@ -57,7 +57,7 @@ class Usuario(models.Model):
     genero = models.CharField(max_length=10, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
     telefono = models.CharField(max_length=15)
     correo = models.EmailField(max_length=30)
-    id_pais = models.ForeignKey('Ubicacion', on_delete=models.SET_NULL, null=True, blank=True)
+    id_ciudad = models.ForeignKey('Ubicacion', on_delete=models.SET_NULL, null=True, blank=True)
     preferencias = models.ManyToManyField('Categoria')
     clave_acceso = models.CharField(max_length=30)
 
@@ -82,7 +82,7 @@ class Ropa(models.Model):
     nombre = models.CharField(max_length=30)
     precio_venta = models.DecimalField(max_digits=9, decimal_places=2)
     marca = models.CharField(max_length=20)
-    genero = models.CharField(max_length=10, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
+    genero = models.CharField(max_length=10, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino'), ('Unisex', 'Unisex')])
     categorias = models.ManyToManyField('Categoria') 
     imagen = models.ImageField(upload_to='ropa/', null=True, blank=True)
     class Meta:

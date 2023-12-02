@@ -5,7 +5,7 @@ from Tienda.models import Usuario
 class UserSerial(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ['cedula', 'nombre', 'apellido', 'f_nacimiento', 'genero', 'telefono', 'correo', 'id_pais', 'preferencias', 'clave_acceso']
+        fields = ['cedula', 'nombre', 'apellido', 'f_nacimiento', 'genero', 'telefono', 'correo', 'id_ciudad', 'preferencias', 'clave_acceso']
 
 # cambiar clave
 class UserSerialClave(serializers.ModelSerializer):

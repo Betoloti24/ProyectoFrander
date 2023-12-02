@@ -16,7 +16,7 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Usuario)
 class UsuarioAdmin(admin.ModelAdmin):
     list_display = ('cedula', 'nombre_completo', 'f_nacimiento', 'genero', 'telefono')
-    list_filter = ('genero', 'id_pais',)
+    list_filter = ('genero', 'id_ciudad',)
     date_hierarchy = 'f_nacimiento'
     search_fields = ('nombre', 'apellido',)
 
