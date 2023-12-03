@@ -15,7 +15,6 @@ urlpatterns = [
     path('carritos/', CarritoController.agregar_al_carrito),
     path('carritos/<int:id_usuario>/<int:id_ropa>/', CarritoController.eliminar_del_carrito),
     path('carritos/<int:id_usuario>/', CarritoController.detalle_carrito),
-    
 
     path('recomendaciones/preferencias_usuario/<int:pk>/', RopaController.recomendar_prendas_preferencias),
     path('recomendaciones/preferencias_otros_usuario/<int:pk>/', RopaController.recomendar_prendas_preferencias_otros_usuarios),

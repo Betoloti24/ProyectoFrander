@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from Tienda.models import Carrito, Ropa, Usuario
+from Tienda.models import Carrito, Ropa, Usuario, Factura
 from Tienda.serializers.CarritoSerializer import CarritoSerializer
 
 # agregar
@@ -102,3 +102,28 @@ def detalle_carrito(request, id_usuario):
             return Response({'error': False, 'mensaje': 'Existencia del carrito actualizado con exito', 'data':[]}, status=status.HTTP_200_OK)
         else:
             return Response({'error': True, 'mensaje': 'No se ha encontrado la prenda en el carrito', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+
+# pagar carrito
+@api_view(['PUT'])
+def pagar_carrito(request, id_usuario):
+    # buscamos al usuario
+    try:
+        usuario = Usuario.objects.get(cedula=id_usuario)
+    except Usuario.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado al usuario', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # buscamos los productos del carrito
+    try:
+        carrito = Carrito.objects.filter(id_usuario=id_usuario, id_factura=None)
+    except Carrito.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado la prenda en el carrito', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # creamos la factura
+    factura = Factura()
+    
+    # actualizamos el carrito
+    for producto in carrito:
+        producto.id_factura = factura
+        producto.save()
+    
+    return Response({'error': False, 'mensaje': 'Carrito pagado con exito', 'data': []}, status=status.HTTP_200_OK)

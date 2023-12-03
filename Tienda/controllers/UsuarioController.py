@@ -60,7 +60,7 @@ def inicio_sesion(request):
     try:
         correo = request.data.get('correo', None)
         clave = request.data.get('clave', None)
-        if correo or clave:
+        if correo and clave:
             usuario = Usuario.objects.get(correo=correo, clave_acceso=clave)
         else:
             return Response({'error': True, 'mensaje': 'No se han enviado todos los datos', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
