@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from Tienda.models import Usuario
-from Tienda.serializers.UsuarioSerializer import UserSerial, UserSerialClave
+from Tienda.serializers.UsuarioSerializer import UserSerial, UserSerialClave, UserSerialActualizar
 
 # creacion y listado de usuarios
 @api_view(['GET', 'POST'])
@@ -33,7 +33,7 @@ def usuario_detail(request, pk):
     
     # actualizacion
     if request.method == 'PUT':
-        serializer = UserSerial(usuario, data=request.data)
+        serializer = UserSerialActualizar(usuario, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'error': False, 'mensaje': 'Usuario actualizado con exito', 'data': serializer.data}, status=status.HTTP_200_OK)
@@ -43,7 +43,7 @@ def usuario_detail(request, pk):
     # eliminacion
     elif request.method == 'DELETE':
         usuario.delete()
-        return Response({'error': False, 'mensaje': 'Usuario eliminado con exito'}, status=status.HTTP_200_OK)
+        return Response({'error': False, 'mensaje': 'Usuario eliminado con exito', 'data': []}, status=status.HTTP_200_OK)
 
     # detalle
     elif request.method == 'GET':
@@ -90,4 +90,3 @@ def cambio_clave(request):
         usuario.save()
         serializaror = UserSerialClave(usuario)
         return Response({'error': False, 'mensaje': 'Clave actualizada con exito', 'data': serializaror.data}, status=status.HTTP_200_OK)
-        
