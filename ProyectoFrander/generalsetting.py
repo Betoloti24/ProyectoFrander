@@ -102,7 +102,6 @@ JAZZMIN_SETTINGS = {
         "Tienda.Categoria": "fas fa-tags",
         "Tienda.Factura": "fas fa-file-invoice-dollar",
         "Tienda.Ubicacion": "fas fa-map-marker-alt",
-        
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -112,7 +111,7 @@ JAZZMIN_SETTINGS = {
     # Related Modal #
     #################
     # Use modals instead of popups
-    "related_modal_active": True,
+    "related_modal_active": False,
 
     #############
     # UI Tweaks #
@@ -182,9 +181,9 @@ DEFAULT_UI_TWEAKS = {
     # Use a flat style sidebar
     "sidebar_nav_flat_style": True,
     # Bootstrap theme to use (default, or from bootswatch, see THEMES below)
-    # "theme": "flatly",
+    "theme": "flatly",
     # "theme": "yeti",
-    "theme": "litera",
+    # "theme": "litera",
     # "theme": "minty",
     # "theme": "sandstone",
     # "theme": "simplex",

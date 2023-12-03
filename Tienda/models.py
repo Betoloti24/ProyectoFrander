@@ -108,7 +108,7 @@ class Ropa(models.Model):
 """
 class Factura(models.Model):
     id = models.BigAutoField(primary_key=True)
-    f_facturacion = models.DateField()
+    f_facturacion = models.DateField(auto_now_add=True)
     monto_total = models.DecimalField(max_digits=9, decimal_places=2)
     id_usuario = models.ForeignKey('Usuario', on_delete=models.CASCADE)
 

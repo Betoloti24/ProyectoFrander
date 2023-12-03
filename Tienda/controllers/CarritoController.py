@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from Tienda.models import Carrito, Ropa, Usuario, Factura
 from Tienda.serializers.CarritoSerializer import CarritoSerializer
+from functools import reduce
 
 # agregar
 @api_view(['POST'])
@@ -119,11 +120,15 @@ def pagar_carrito(request, id_usuario):
         return Response({'error': True, 'mensaje': 'No se ha encontrado la prenda en el carrito', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
     
     # creamos la factura
-    factura = Factura()
-    
-    # actualizamos el carrito
-    for producto in carrito:
-        producto.id_factura = factura
-        producto.save()
-    
-    return Response({'error': False, 'mensaje': 'Carrito pagado con exito', 'data': []}, status=status.HTTP_200_OK)
+    if (carrito):
+        monto_total = float(reduce(lambda x, y: x + y, map(lambda x: x.id_ropa.precio_venta * x.cantidad, carrito)))
+        factura = Factura(monto_total=monto_total, id_usuario=usuario)
+        factura.save()
+        # actualizamos el carrito
+        for producto in carrito:
+            producto.id_factura = factura
+            producto.save()
+
+        return Response({'error': False, 'mensaje': 'Carrito pagado con exito', 'data': []}, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': True, 'mensaje': 'El usuario no posee un carrito para pagar', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
