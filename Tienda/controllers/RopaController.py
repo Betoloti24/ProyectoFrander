@@ -1,8 +1,9 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from Tienda.models import Ropa
+from Tienda.models import Ropa, Usuario
 from Tienda.serializers.RopaSerializer import RopaSerializer
+from Tienda.modelo_ia import preferencias_de_usuario, preferencias_de_otros_usuarios, prendas_mas_vendidas
 
 # creacion y listado
 @api_view(['GET', 'POST'])
@@ -49,4 +50,46 @@ def ropa_detail(request, pk):
         serializer = RopaSerializer(prenda)
         return Response({'error': False, 'mensaje': 'Detalle de la prenda', 'data': serializer.data}, status=status.HTTP_200_OK)
 
-        
+# recomendar por preferencias
+@api_view(['GET'])
+def recomendar_prendas_preferencias(request, pk):
+    # recuperamos la instancia del usuario
+    try:
+        usuario = Usuario.objects.get(cedula=pk)
+        preferencias = usuario.preferencias
+        prendas = preferencias_de_usuario(pk)
+        serializer = RopaSerializer(prendas, many=True)
+        return Response({'error': False, 'mensaje': 'Listado de prendas de ropa recomendadas', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Usuario.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado al usuario', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    except Ropa.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado prendas de ropa', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    
+# recomendar por preferencias de otros usuarios que tienen las mismas preferencias
+@api_view(['GET'])
+def recomendar_prendas_preferencias_otros_usuarios(request, pk):
+    # recuperamos la instancia del usuario
+    try:
+        usuario = Usuario.objects.get(cedula=pk)
+        preferencias = usuario.preferencias
+        prendas = preferencias_de_otros_usuarios(pk)
+        serializer = RopaSerializer(prendas, many=True)
+        return Response({'error': False, 'mensaje': 'Listado de prendas de ropa recomendadas a partir de las preferencias de otros usuarios', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Usuario.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado al usuario', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    except Ropa.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado prendas de ropa', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    
+# recomendar prendas mas vendidas
+@api_view(['GET'])
+def recomendar_prendas_mas_vendidas(request):
+    # recuperamos la instancia del usuario
+    try:
+        prendas = prendas_mas_vendidas()
+        serializer = RopaSerializer(prendas, many=True)
+        return Response({'error': False, 'mensaje': 'Listado de prendas mas vendidas', 'data': serializer.data}, status=status.HTTP_200_OK)
+    except Usuario.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado al usuario', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    except Ropa.DoesNotExist:
+        return Response({'error': True, 'mensaje': 'No se ha encontrado prendas de ropa', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    

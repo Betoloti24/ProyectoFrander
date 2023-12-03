@@ -5,22 +5,13 @@ from Tienda.models import Usuario
 from Tienda.serializers.UsuarioSerializer import UserSerial, UserSerialClave, UserSerialActualizar
 
 # creacion y listado de usuarios
-@api_view(['GET', 'POST'])
-def usuario_list(request):
+@api_view(['GET'])
+def consultar_usuarios(request):
     # listado
     if request.method == 'GET':
         usuarios = Usuario.objects.all()
         serializer = UserSerial(usuarios, many=True)
         return Response({'error': False, 'mensaje': 'Listado de usuarios', 'data': serializer.data}, status=status.HTTP_200_OK)
-    
-    # creacion
-    elif request.method == 'POST':
-        serializer = UserSerial(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response({'error': False, 'mensaje': 'Usuario creado con exito', 'data': serializer.data}, status=status.HTTP_201_CREATED)
-        else: 
-            return Response({'error': True, 'mensaje': 'No se pudo crear el usuario', 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
         
 # actualizacion y eliminacion de usuarios
 @api_view(['GET', 'PUT', 'DELETE'])
@@ -49,6 +40,18 @@ def usuario_detail(request, pk):
     elif request.method == 'GET':
         serializer = UserSerial(usuario)
         return Response({'error': False, 'mensaje': 'Detalle de usuario', 'data': serializer.data}, status=status.HTTP_200_OK)
+
+# registro usuario
+@api_view(['POST'])
+def registro_usuario(request):
+    # creacion
+    if request.method == 'POST':
+        serializer = UserSerial(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'error': False, 'mensaje': 'Usuario creado con exito', 'data': serializer.data}, status=status.HTTP_201_CREATED)
+        else: 
+            return Response({'error': True, 'mensaje': 'No se pudo crear el usuario', 'data': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
 # incio de sesion
 @api_view(['GET'])
