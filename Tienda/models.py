@@ -56,7 +56,7 @@ class Usuario(models.Model):
     f_nacimiento = models.DateField()
     genero = models.CharField(max_length=10, choices=[('Masculino', 'Masculino'), ('Femenino', 'Femenino')])
     telefono = models.CharField(max_length=15)
-    correo = models.EmailField(max_length=30)
+    correo = models.EmailField(max_length=30, unique=True)
     id_ciudad = models.ForeignKey('Ubicacion', on_delete=models.SET_NULL, null=True, blank=True)
     preferencias = models.ManyToManyField('Categoria', blank=True)
     clave_acceso = models.CharField(max_length=30)
