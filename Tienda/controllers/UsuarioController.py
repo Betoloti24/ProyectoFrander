@@ -64,7 +64,7 @@ def inicio_sesion(request):
             usuario = Usuario.objects.get(correo=correo, clave_acceso=clave)
         else:
             return Response({'error': True, 'mensaje': 'No se han enviado todos los datos', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
-    except Exception as e:
+    except Usuario.DoesNotExist:
         return Response({'error': True, 'mensaje': 'Correo o clave incorrectos', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
     
     # detalle

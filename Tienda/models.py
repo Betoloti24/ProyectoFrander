@@ -58,7 +58,7 @@ class Usuario(models.Model):
     telefono = models.CharField(max_length=15)
     correo = models.EmailField(max_length=30)
     id_ciudad = models.ForeignKey('Ubicacion', on_delete=models.SET_NULL, null=True, blank=True)
-    preferencias = models.ManyToManyField('Categoria')
+    preferencias = models.ManyToManyField('Categoria', blank=True)
     clave_acceso = models.CharField(max_length=30)
 
     class Meta:
