@@ -25,9 +25,12 @@ class UsuarioAdmin(admin.ModelAdmin):
 
 @admin.register(Ropa)
 class RopaAdmin(admin.ModelAdmin):
-    list_display = ('id', 'nombre', 'precio_venta', 'genero')
+    list_display = ('id', 'nombre', 'list_categorias', 'precio_venta', 'genero')
     list_filter = ('genero',)
     search_fields = ('nombre',)
+
+    def list_categorias(self, obj):
+        return [x['nombre'] for x in obj.categorias.values()]
 
 @admin.register(Factura)
 class FacturaAdmin(admin.ModelAdmin):
@@ -38,6 +41,6 @@ class FacturaAdmin(admin.ModelAdmin):
 @admin.register(Carrito)
 class CarritoAdmin(admin.ModelAdmin):
     list_display = ('id_usuario', 'id_ropa', 'cantidad', 'id_factura')
-    list_filter = ('id_usuario', 'id_ropa')
+    list_filter = ('id_usuario', 'id_ropa__categorias')
     search_fields = ('id_usuario', 'id_ropa')
     readonly_fields = ('id_factura', )
