@@ -98,10 +98,11 @@ def cambio_clave(request):
 @api_view(['PUT'])
 def cambiar_preferencias(request, pk):
     # Validamos los datos de entrada
-    preferencias = request.data.get('preferencias', None)
+    print(request.data)
+    preferencias = request.data.getlist('preferencias', None)
     if preferencias is None:
-        return Response({'error': True, 'mensaje': 'No se han enviado los datos solicitados', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
-    
+        preferencias = []
+
     # Recuperamos al usuario
     usuario = Usuario.objects.filter(cedula=pk).first()
     if not usuario:
