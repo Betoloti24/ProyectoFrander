@@ -93,3 +93,5 @@ def cambio_clave(request):
         usuario.save()
         serializaror = UserSerialClave(usuario)
         return Response({'error': False, 'mensaje': 'Clave actualizada con exito', 'data': serializaror.data}, status=status.HTTP_200_OK)
+    
+# actualizar preferencias

@@ -28,7 +28,10 @@ def preferencias_de_otros_usuarios(id_usuario):
 
 # filtrar por prendas mas vendidas
 def prendas_mas_vendidas():
+    # determinamos el top de prendas
     top_prendas = Carrito.objects.filter(~Q(id_factura=None)).values("id_ropa").annotate(total_vendido=Sum("cantidad")).order_by("-total_vendido")[:5]
+    # identificacion de las prendas top
     id_prendas_mas_vendidas = [prenda['id_ropa'] for prenda in top_prendas]
+    # lista de las prendas
     recomendaciones = Ropa.objects.filter(id__in=id_prendas_mas_vendidas)
     return recomendaciones

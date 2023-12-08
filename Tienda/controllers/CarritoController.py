@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from Tienda.models import Carrito, Ropa, Usuario, Factura
+from Tienda.models import Carrito, Ropa, Usuario, Factura, Categoria
 from Tienda.serializers.CarritoSerializer import CarritoSerializer
 from functools import reduce
 
@@ -125,10 +125,15 @@ def pagar_carrito(request, id_usuario):
         factura = Factura(monto_total=monto_total, id_usuario=usuario)
         factura.save()
         # actualizamos el carrito
+        categorias = []
         for producto in carrito:
             producto.id_factura = factura
+            categorias.extend([x['id'] for x in producto.id_ropa.categorias.values()])
             producto.save()
-
+        # usuario
+        categorias_nuevas = Categoria.objects.filter(id__in=categorias)
+        usuario.preferencias.add(*categorias_nuevas)
+        usuario.save()
         return Response({'error': False, 'mensaje': 'Carrito pagado con exito', 'data': []}, status=status.HTTP_200_OK)
     else:
         return Response({'error': True, 'mensaje': 'El usuario no posee un carrito para pagar', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
