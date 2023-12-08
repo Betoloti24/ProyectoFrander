@@ -114,13 +114,12 @@ def pagar_carrito(request, id_usuario):
         return Response({'error': True, 'mensaje': 'No se ha encontrado al usuario', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
     
     # buscamos los productos del carrito
-    try:
-        carrito = Carrito.objects.filter(id_usuario=id_usuario, id_factura=None)
-    except Carrito.DoesNotExist:
-        return Response({'error': True, 'mensaje': 'No se ha encontrado la prenda en el carrito', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    carrito = Carrito.objects.filter(id_usuario=id_usuario, id_factura=None)
     
     # creamos la factura
     if (carrito):
+        # map, filter -> map(lambda x: x**5, [1,2,3]) = [1,4,9]                     filter(lambda x: x>=5, [6,4,7]) = [6,7]
+        # redudce(lambda x,y: x*y, [4,9,6]) = 216
         monto_total = float(reduce(lambda x, y: x + y, map(lambda x: x.id_ropa.precio_venta * x.cantidad, carrito)))
         factura = Factura(monto_total=monto_total, id_usuario=usuario)
         factura.save()
@@ -130,7 +129,7 @@ def pagar_carrito(request, id_usuario):
             producto.id_factura = factura
             categorias.extend([x['id'] for x in producto.id_ropa.categorias.values()])
             producto.save()
-        # usuario
+        # actualizar preferencias del usuario
         categorias_nuevas = Categoria.objects.filter(id__in=categorias)
         usuario.preferencias.add(*categorias_nuevas)
         usuario.save()

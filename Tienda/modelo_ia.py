@@ -4,7 +4,9 @@ from .models import Ropa, Usuario, Carrito
 # filtrar prendas por preferencias de usuario
 def preferencias_de_usuario(id_usuario):
     usuario = Usuario.objects.get(cedula = id_usuario)
+    # lista = [x for x in range(10)] -> [0,1,2,3,4,5,6,7,8,9]
     preferencias = [categoria['nombre'] for categoria in usuario.preferencias.values()]
+    # Ropa = [1,2]      Preferencias = [1,2,4]
     prendas_recomendadas = Ropa.objects.filter(categorias__nombre__in=preferencias).filter(Q(genero=usuario.genero) | Q(genero='Unisex')).distinct()
     return prendas_recomendadas
 

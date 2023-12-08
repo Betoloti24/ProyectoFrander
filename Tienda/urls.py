@@ -8,6 +8,7 @@ urlpatterns = [
     path('usuarios/registro/', UsuarioController.registro_usuario),
     path('usuarios/inicio_sesion/', UsuarioController.inicio_sesion),
     path('usuarios/cambiar_clave/', UsuarioController.cambio_clave),
+    path('usuarios/cambiar_preferencias/<int:pk>/', UsuarioController.cambiar_preferencias),
     
     path('ropas/', RopaController.ropa_list),
     path('ropas/<int:pk>/', RopaController.ropa_detail),

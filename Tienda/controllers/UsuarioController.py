@@ -1,7 +1,7 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from Tienda.models import Usuario
+from Tienda.models import Usuario, Categoria
 from Tienda.serializers.UsuarioSerializer import UserSerial, UserSerialClave, UserSerialActualizar
 
 # creacion y listado de usuarios
@@ -95,3 +95,22 @@ def cambio_clave(request):
         return Response({'error': False, 'mensaje': 'Clave actualizada con exito', 'data': serializaror.data}, status=status.HTTP_200_OK)
     
 # actualizar preferencias
+@api_view(['PUT'])
+def cambiar_preferencias(request, pk):
+    # Validamos los datos de entrada
+    preferencias = request.data.get('preferencias', None)
+    if preferencias is None:
+        return Response({'error': True, 'mensaje': 'No se han enviado los datos solicitados', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Recuperamos al usuario
+    usuario = Usuario.objects.filter(cedula=pk).first()
+    if not usuario:
+        return Response({'error': True, 'mensaje': 'El usuario no existe', 'data': []}, status=status.HTTP_400_BAD_REQUEST)
+
+    # consultamos las preferencias
+    nuevas_preferencias = Categoria.objects.filter(id__in=preferencias)
+    
+    # actualizacion
+    usuario.preferencias.set(nuevas_preferencias)
+    usuario.save()
+    return Response({'error': False, 'mensaje': 'Las preferencias del usuario se han actualizado', 'data': []}, status=status.HTTP_200_OK)
