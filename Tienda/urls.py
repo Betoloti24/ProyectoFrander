@@ -1,6 +1,6 @@
 from rest_framework import routers
 from django.urls import path, include
-from Tienda.controllers import UsuarioController, RopaController, CarritoController, CategoriaController
+from Tienda.controllers import UsuarioController, RopaController, CarritoController, CategoriaController, FacturasController
 
 urlpatterns = [
     path('usuarios/', UsuarioController.consultar_usuarios),
@@ -23,4 +23,6 @@ urlpatterns = [
     path('recomendaciones/prendas_mas_vendidas/', RopaController.recomendar_prendas_mas_vendidas),
 
     path('categorias/', CategoriaController.categoria_list),
+    
+    path('facturas/<int:pk>/', FacturasController.facturas_list),
 ]
